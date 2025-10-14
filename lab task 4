@@ -1,0 +1,29 @@
+def luhn_check(card_number):
+    digits = [int(ch) for ch in card_number if ch.isdigit()]
+    if not digits:
+        return False
+    check = digits.pop()
+    digits.reverse()
+    total = 0
+    for i, d in enumerate(digits):
+        if i % 2 == 0:
+            d *= 2
+            if d > 9:
+                d -= 9
+        total += d
+    total += check
+    return total % 10 == 0
+
+n = input("Enter card number: ").strip()
+print("Valid" if luhn_check(n) else "Invalid")
+s = input("Enter sentence with punctuation: ")
+punct = ",.!?;:'\"-()[]{}@#$%^&*_+/\\|<>~`"
+out = "".join(ch for ch in s if ch not in punct)
+print(out)
+
+line = input("Enter words to sort: ")
+words = line.split()
+words.sort(key=lambda w: w.lower())
+result = " ".join(words)
+print(result)
+None
