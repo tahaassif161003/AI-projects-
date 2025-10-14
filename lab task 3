@@ -1,0 +1,50 @@
+class Room:
+    def __init__(self, name, temp):
+        self.name = name
+        self.temp = temp
+        self.heater = False
+        self.prev_heater = False
+
+def check_heater(room):
+    room.prev_heater = room.heater
+    if room.temp < 22:
+        if not room.prev_heater:
+            room.heater = True
+            print(room.name, "Heater ON (Temp:", room.temp, ")")
+        else:
+            print(room.name, "Heater still ON (Temp:", room.temp, ")")
+    else:
+        if room.prev_heater:
+            room.heater = False
+            print(room.name, "Heater OFF (Temp:", room.temp, ")")
+        else:
+            print(room.name, "Heater still OFF (Temp:", room.temp, ")")
+
+rooms = [
+    Room("Room1", 21),
+    Room("Room2", 22),
+    Room("Room3", 20)
+]
+
+for cycle in range(3):
+    print("Cycle", cycle+1)
+    for r in rooms:
+        check_heater(r)
+    rooms[0].temp += 1
+    rooms[1].temp -= 1
+    rooms[2].temp += 2
+    print()
+Cycle 1
+Room1 Heater ON (Temp: 21 )
+Room2 Heater still OFF (Temp: 22 )
+Room3 Heater ON (Temp: 20 )
+
+Cycle 2
+Room1 Heater OFF (Temp: 22 )
+Room2 Heater ON (Temp: 21 )
+Room3 Heater OFF (Temp: 22 )
+
+Cycle 3
+Room1 Heater still OFF (Temp: 23 )
+Room2 Heater still ON (Temp: 20 )
+Room3 Heater still OFF (Temp: 24 )
