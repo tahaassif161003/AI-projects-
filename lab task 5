@@ -1,0 +1,39 @@
+
+graph_structure = {
+    'A': ['B', 'C'],
+    'B': ['D', 'E'],
+    'C': ['F'],
+    'D': [],
+    'E': [],
+    'F': ['G'],
+    'G': []
+}
+
+def depth_first_search(start_node, target_node):
+    visited_nodes = []
+    stack_nodes = [start_node]
+
+    while stack_nodes:
+        current_node = stack_nodes.pop()
+
+        if current_node not in visited_nodes:
+            visited_nodes.append(current_node)
+            print("Currently at:", current_node)
+
+            if current_node == target_node:
+                print("Target node", target_node, "has been found!")
+                return visited_nodes
+
+            # Stack is LIFO, so add children in reverse order for correct left-to-right traversal
+            children_nodes = graph_structure[current_node]
+            for child in children_nodes[::-1]:  # Using slicing for reversing
+                if child not in visited_nodes:
+                    stack_nodes.append(child)
+
+    print("Could not locate target node:", target_node)
+    return visited_nodes
+
+
+# Function call example
+path_traversed = depth_first_search('A', 'E')
+print("Nodes visited in order:", path_traversed)
