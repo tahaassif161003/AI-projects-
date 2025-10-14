@@ -1,0 +1,23 @@
+graph = {
+    'A': ['B', 'C'],
+    'B': ['D', 'E'],
+    'C': ['F'],
+    'D': [],
+    'E': ['F'],
+    'F': []
+}
+
+start = 'A'                 
+stack = [start]             
+visited = []                
+
+while stack:
+    node = stack.pop()      
+    if node not in visited:
+        visited.append(node)
+
+        for nei in reversed(graph[node]):
+            if nei not in visited:
+                stack.append(nei)
+
+print("DFS order is:", visited)
